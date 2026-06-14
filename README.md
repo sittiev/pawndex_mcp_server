@@ -16,7 +16,9 @@ This server enables AI assistants (like Claude) to:
 
 ## Installation
 
-### For Claude Desktop
+<details>
+<summary><b>Claude Desktop</b> — via <code>claude_desktop_config.json</code></summary>
+
 Add the following to your `claude_desktop_config.json`:
 
 ```json
@@ -34,6 +36,106 @@ Add the following to your `claude_desktop_config.json`:
   }
 }
 ```
+
+</details>
+
+<details>
+<summary><b>Claude Code</b> — STDIO via <code>.mcp.json</code></summary>
+
+Create a `.mcp.json` file in your project root:
+
+```json
+{
+  "mcpServers": {
+    "pawndex": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "/path/to/pawndex_mcp_server",
+        "run",
+        "pawndex_mcp_server"
+      ]
+    }
+  }
+}
+```
+
+Or add via CLI:
+
+```bash
+claude mcp add pawndex -- uv --directory /path/to/pawndex_mcp_server run pawndex_mcp_server
+```
+
+</details>
+
+<details>
+<summary><b>OpenCode</b> — config via <code>opencode.jsonc</code></summary>
+
+Add to your `opencode.jsonc`:
+
+```jsonc
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "pawndex": {
+      "type": "local",
+      "command": [
+        "uv",
+        "--directory",
+        "/path/to/pawndex_mcp_server",
+        "run",
+        "pawndex_mcp_server"
+      ],
+      "enabled": true
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary><b>Gemini CLI</b> — config via <code>.gemini/settings.json</code></summary>
+
+Add to your `.gemini/settings.json`:
+
+```json
+{
+  "mcpServers": {
+    "pawndex": {
+      "command": "uv",
+      "args": ["--directory", "/path/to/pawndex_mcp_server", "run", "pawndex_mcp_server"]
+    }
+  }
+}
+```
+
+Or add via CLI:
+
+```bash
+gemini mcp add pawndex -- uv --directory /path/to/pawndex_mcp_server run pawndex_mcp_server
+```
+
+</details>
+
+<details>
+<summary><b>OpenAI Codex CLI</b> — config via <code>~/.codex/config.toml</code></summary>
+
+Add to your `~/.codex/config.toml` or project-scoped `.codex/config.toml`:
+
+```toml
+[mcp_servers.pawndex]
+command = "uv"
+args = ["--directory", "/path/to/pawndex_mcp_server", "run", "pawndex_mcp_server"]
+```
+
+Or add via CLI:
+
+```bash
+codex mcp add pawndex -- uv --directory /path/to/pawndex_mcp_server run pawndex_mcp_server
+```
+
+</details>
 
 ## Development
 Requires Python 3.11+.
